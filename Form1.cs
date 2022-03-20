@@ -32,6 +32,8 @@ namespace Hacaton
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //проверка питон модуля - динамический расчет
+
             //Dictionary<string, double> dish1, dish2;
             //List<string> list1;
 

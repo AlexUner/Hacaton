@@ -63,6 +63,8 @@ namespace Hacaton
                 fs.Close();
             }
 
+            // Сохранение дерева целей - запустить после создания структуры дерева целей
+
             //if (File.Exists(Application.StartupPath + @"\" + Struct_type + ".xml"))
             //{
             //    TreeNode[] tempNodes;
@@ -78,10 +80,11 @@ namespace Hacaton
             //    fs.Close();
             //}
 
+            // сохранение задач - доработать
+
             //if (File.Exists(Application.StartupPath + @"\" + Struct_type + "_Nodes.txt"))
             //{
             //    List<string> text = new List<string>(File.ReadAllLines(Application.StartupPath + @"\" + Struct_type + "_Nodes.txt"));
-
             //}
             //else
             //{
@@ -118,6 +121,8 @@ namespace Hacaton
 
         private void button2_Click(object sender, EventArgs e)
         {
+            // Вариант обработки узлов и задач через C#
+
             //TreeNode n = treeView1.SelectedNode;
             //if (n == null)
             //{
@@ -132,21 +137,22 @@ namespace Hacaton
             //    //nodeDict[n1] = radioButton1.Checked;
             //}
 
-            ScriptEngine engine = Python.CreateEngine();
-            ScriptScope scope = engine.CreateScope();
 
-            Dictionary<dynamic, List<dynamic>> dish1 = new Dictionary<dynamic, List<dynamic>>();
+            // Вариант обработки узлов и задач через питон
 
-            dish1["path"] = new List<dynamic>() { 0 };
-            dish1["zadacha_parametrs"] = new List<dynamic>() { 1, 2, 4 };
+            //ScriptEngine engine = Python.CreateEngine();
+            //ScriptScope scope = engine.CreateScope();
 
-            engine.ExecuteFile("tree.py", scope);
-            dynamic funk = scope.GetVariable("funk");
-            dynamic result = funk(dish1);
+            //Dictionary<dynamic, List<dynamic>> dish1 = new Dictionary<dynamic, List<dynamic>>();
 
-            //treeView1.Nodes.Add(new TreeNode(richTextBox3.Text));
-            //button1_Click(sender, e);
+            //dish1["path"] = new List<dynamic>() { 0 };
+            //dish1["zadacha_parametrs"] = new List<dynamic>() { 1, 2, 4 };
+
+            //engine.ExecuteFile("tree.py", scope);
+            //dynamic funk = scope.GetVariable("funk");
+            //dynamic result = funk(dish1);
         }
+
         bool isDown;
         System.Drawing.Point shift;
         private void panel1_MouseDown(object sender, MouseEventArgs e)
@@ -178,21 +184,21 @@ namespace Hacaton
             isDown = false;
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void button6_Click(object sender, EventArgs e) // добавление человека с хар-ками
         {
-            pokemony.Add(new Panel());
-            int i = pokemony.Count - 1;
-            pokemony[i].Parent = this;
-            pokemony[i].Width = panel2.Width;
-            pokemony[i].Height = panel2.Height;
-            pokemony[i].Visible = true;
-            pokemony[i].Left = 10;
-            pokemony[i].Top = panel2.Height * i + 20;
-            foreach (Control c in panel2.Controls)
-            {
-                pokemony[i].Controls.Add(c);
-            }
-            //pokemony[i].Controls.AddRange(panel2.Controls);   
+            //pokemony.Add(new Panel()); 
+            //int i = pokemony.Count - 1;
+            //pokemony[i].Parent = this;
+            //pokemony[i].Width = panel2.Width;
+            //pokemony[i].Height = panel2.Height;
+            //pokemony[i].Visible = true;
+            //pokemony[i].Left = 10;
+            //pokemony[i].Top = panel2.Height * i + 20;
+            //foreach (Control c in panel2.Controls)
+            //{
+            //    pokemony[i].Controls.Add(c);
+            //}
+            ////pokemony[i].Controls.AddRange(panel2.Controls);   
         }
 
         private void button7_Click(object sender, EventArgs e)
