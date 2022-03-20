@@ -165,7 +165,7 @@ namespace Hacaton
                 Control c = sender as Control;
                 System.Drawing.Point p = this.PointToClient(Control.MousePosition);
                 
-                p.X -= shift.X;
+                p.X -= shift.X; 
                 p.Y -= shift.Y;
                 Console.WriteLine(p.X);
                 Console.WriteLine(p.Y);
