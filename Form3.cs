@@ -5,11 +5,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Soap;
 
+using IronPython.Hosting;
+using Microsoft.Scripting.Hosting;
+
 namespace Hacaton
 {
     public partial class Form3 : Form
     {
         string Struct_type;
+
+        List<Panel> pokemony = new List<Panel>();
 
         Dictionary<TreeNode, bool> nodeDict = new Dictionary<TreeNode, bool>();
         public Form3(string Str)
@@ -113,21 +118,31 @@ namespace Hacaton
 
         private void button2_Click(object sender, EventArgs e)
         {
-            TreeNode n = treeView1.SelectedNode;
-            if (n == null)
-            {
-                n = new TreeNode(richTextBox1.Text);
-                treeView1.Nodes.Add(n);
-                nodeDict[n] = radioButton1.Checked;
-            }
-            else
-            {
-                //TreeNode n1 = new TreeNode(richTextBox1.Text);
-                //Console.WriteLine(treeView1.Nodes.[treeView1.Nodes.IndexOfKey(n.Text)]);
-                //nodeDict[n1] = radioButton1.Checked;
-            }
+            //TreeNode n = treeView1.SelectedNode;
+            //if (n == null)
+            //{
+            //    n = new TreeNode(richTextBox1.Text);
+            //    treeView1.Nodes.Add(n);
+            //    nodeDict[n] = radioButton1.Checked;
+            //}
+            //else
+            //{
+            //    //TreeNode n1 = new TreeNode(richTextBox1.Text);
+            //    //Console.WriteLine(treeView1.Nodes.[treeView1.Nodes.IndexOfKey(n.Text)]);
+            //    //nodeDict[n1] = radioButton1.Checked;
+            //}
 
+            ScriptEngine engine = Python.CreateEngine();
+            ScriptScope scope = engine.CreateScope();
 
+            Dictionary<dynamic, List<dynamic>> dish1 = new Dictionary<dynamic, List<dynamic>>();
+
+            dish1["path"] = new List<dynamic>() { 0 };
+            dish1["zadacha_parametrs"] = new List<dynamic>() { 1, 2, 4 };
+
+            engine.ExecuteFile("tree.py", scope);
+            dynamic funk = scope.GetVariable("funk");
+            dynamic result = funk(dish1);
 
             //treeView1.Nodes.Add(new TreeNode(richTextBox3.Text));
             //button1_Click(sender, e);
@@ -161,6 +176,28 @@ namespace Hacaton
         private void panel1_MouseUp(object sender, MouseEventArgs e)
         {
             isDown = false;
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            pokemony.Add(new Panel());
+            int i = pokemony.Count - 1;
+            pokemony[i].Parent = this;
+            pokemony[i].Width = panel2.Width;
+            pokemony[i].Height = panel2.Height;
+            pokemony[i].Visible = true;
+            pokemony[i].Left = 10;
+            pokemony[i].Top = panel2.Height * i + 20;
+            foreach (Control c in panel2.Controls)
+            {
+                pokemony[i].Controls.Add(c);
+            }
+            //pokemony[i].Controls.AddRange(panel2.Controls);   
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            this.Owner.Visible = false;
         }
     }
 }
